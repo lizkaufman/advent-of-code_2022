@@ -1,9 +1,9 @@
 import data from "./input.js";
 
-const moveScore = calculateMoveScore(data);
-const resultsScore = calculateResultScore(data);
-const solution_pt1 = moveScore + resultsScore;
-console.log(solution_pt1);
+//Part 1:
+
+const solution_pt1 = calculateMoveScore(data) + calculateResultScore(data);
+console.log({ solution_pt1 });
 
 function calculateMoveScore(data) {
   return data.reduce((acc, cur) => {
@@ -23,7 +23,7 @@ function calculateMoveScore(data) {
   }, 0);
 }
 
-function calculateResultScore() {
+function calculateResultScore(data) {
   return data.reduce((acc, cur) => {
     return calculateGameScore(cur) + acc;
   }, 0);
@@ -78,4 +78,31 @@ function calculateGameScore(gameString) {
         return 0;
     }
   }
+}
+
+//Part 2:
+
+const solution_pt2 = calculateUpdatedScore(data);
+console.log({ solution_pt2 });
+
+function calculateUpdatedScore(data) {
+  const pointsForMoves = {
+    A: { win: 2, lose: 3, draw: 1 },
+    B: { win: 3, lose: 1, draw: 2 },
+    C: { win: 1, lose: 2, draw: 3 },
+  };
+  return data.reduce((acc, cur) => {
+    if (cur[2] === "X") {
+      // X -> need to lose -> 0
+      return acc + pointsForMoves[cur[0]].lose;
+    }
+    if (cur[2] === "Y") {
+      // Y -> need to draw -> 3
+      return acc + 3 + pointsForMoves[cur[0]].draw;
+    }
+    if (cur[2] === "Z") {
+      // Z -> need to win -> 6
+      return acc + 6 + pointsForMoves[cur[0]].win;
+    }
+  }, 0);
 }
