@@ -34,3 +34,8 @@ function hasUniqueChars(chars) {
 function createCharGroup(groupSize, startingIndex, data) {
   return [...data.slice(startingIndex, startingIndex + groupSize)];
 }
+
+//Part 2:
+
+const solution_pt2 = countCharsToUniqueSet(data, 14);
+console.log({ solution_pt2 });
